@@ -1,7 +1,7 @@
 from src.logger import logger
 from src.config_parser import parse
 from src.client import Gen_Client
-from src.transform import Test_Transform
+from src.transform import GPT2_Transform
 import sys
 
 # Set up logger
@@ -14,7 +14,7 @@ if len(sys.argv)>1:
 config = parse(config_file)
 
 # Set up transformer to use
-transformer = Test_Transform()
+transformer = GPT2_Transform()
 
 # Set up client
 client = Gen_Client(transformer)
