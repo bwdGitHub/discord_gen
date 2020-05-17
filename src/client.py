@@ -1,6 +1,12 @@
 import discord
+import src.transform
 
 class Gen_Client(discord.Client):
+
+    def __init__(self,transformer):        
+        self.Transformer = transformer
+        super(Gen_Client,self).__init__()
+
     async def on_read(self):
         print("Logged on as {0}!".format(self.user))
 
@@ -13,3 +19,10 @@ class Gen_Client(discord.Client):
 
         if message.content.startswith('$hello'):
             await message.channel.send('hey')
+
+        if message.content.startswith('$transform'):
+            # todo - better message parsing.
+            inputs = message.content.split("$transform")
+            input = inputs[1]
+            response = self.Transformer.transform(input)
+            await message.channel.send(response)
