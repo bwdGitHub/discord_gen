@@ -9,8 +9,14 @@ I'm using the following:
 
 Of course these have their own dependencies, I'm not your package manager.
 
-## Where's the code?
-For now it's on the `dev` branch. I try to use `master` for stuff I'm confident about. Unfortunately `git` forces me to commit something, so I have to put this readme here.
+## How to use
+With any luck you only need to do the following:
+1. Install the dependencies
+2. Clone the repo
+3. Create a `config.json` that has at least a single key `token` with your bot's token.
+4. `python main.py`
+
+Optionally you can pass the path to a JSON file as the first command-line argument to `main.py`.
 
 ## Disclaimer
 This is for fun, it's not intended to be anything. There are probably many bots like this, but this one is mine.
