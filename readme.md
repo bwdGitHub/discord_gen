@@ -18,5 +18,7 @@ With any luck you only need to do the following:
 
 Optionally you can pass the path to a JSON file as the first command-line argument to `main.py`.
 
+The bot is currently configured to listen for messages that start with "$transform" and passes everything that follows in that message to the language model to generate follow-up text. The generated text is sent as a new message. 
+
 ## Disclaimer
 This is for fun, it's not intended to be anything. There are probably many bots like this, but this one is mine.
