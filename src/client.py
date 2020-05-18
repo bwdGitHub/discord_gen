@@ -3,8 +3,9 @@ import src.transform
 
 class Gen_Client(discord.Client):
 
-    def __init__(self,transformer):        
+    def __init__(self,transformer,github=''):        
         self.Transformer = transformer
+        self.github = github
         super(Gen_Client,self).__init__()
 
     async def on_read(self):
@@ -19,6 +20,9 @@ class Gen_Client(discord.Client):
 
         if message.content.startswith('$hello'):
             await message.channel.send('hey')
+
+        if message.content.startswith('$github'):
+            await message.channel.send(self.github)
 
         if message.content.startswith('$transform'):
             # todo - better message parsing.
