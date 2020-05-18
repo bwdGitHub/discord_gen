@@ -16,7 +16,7 @@ config = parse(config_file)
 # optional $github command will point to config['github']
 # default just point to my repo.
  
-github = config.github if 'github' in config else 'https://github.com/bwdGitHub/discord_gen'
+github = config['github'] if 'github' in config else 'https://github.com/bwdGitHub/discord_gen'
 
 # Set up transformer to use
 transformer = GPT2_Transform()
