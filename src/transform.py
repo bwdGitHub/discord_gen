@@ -2,19 +2,38 @@ from abc import ABC, abstractmethod
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 
 class Transform(ABC):
+    '''
+    Transform interface
+    '''
 
     @abstractmethod
     def transform(self,str):
         pass
 
 class Test_Transform(Transform):
+    '''
+    A transform for testing integration with the client. Simply reverses the string.
 
-    def transform(self,str):
-        # simple transform - just reverse the input string.
+    Example:
+    transform = Test_Transform()
+    transform.transform("foo")
+    # returns "oof"
+    '''
+
+    def transform(self,str):        
         return str[::-1]
 
 class GPT2_Transform(Transform):
-    ''' Generates responses using the gpt2 language model.'''
+    '''
+    Generates responses using the gpt2 language model.
+    Follows the run_generation.py script of https://github.com/huggingface/transformers
+
+    Optional Parameters:
+      max_length  - default 20
+      temperature - default 1.0
+      top_k       - default 0
+      top_p       - default 0.9
+    '''
 
     def __init__(self,
     max_length = 20,
@@ -54,6 +73,14 @@ class GPT2_Transform(Transform):
         return " ".join(gen)
 
 class Compose_Transform(Transform):
+    ''' 
+    Compose two transforms
+    For example, given two Transform instances T1 and T2, then
+    T = Compose_Transform(T1,T2)
+    simply defines T.transform(str) as
+    T2.transform(T1.transform(str))
+    '''
+
     def __init__(self, T1, T2):
         self.T1 = T1
         self.T2 = T2
@@ -62,6 +89,10 @@ class Compose_Transform(Transform):
         return self.T2.transform(self.T1.transform(str))
 
 class Postprocessor(Transform):
+    '''
+    Simple postprocessing to be used on generated text, implemented as a Transform
+    '''
+    
     def transform(self,str):
         lastperiod = str.rfind(".")
         end = len(str) if lastperiod==-1 else lastperiod+1
